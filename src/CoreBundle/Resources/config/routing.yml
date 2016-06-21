@@ -1,0 +1,28 @@
+default:
+    type:     rest
+    resource: CoreBundle\Controller\DefaultController
+
+type:
+    type:     rest
+    resource: CoreBundle\Controller\TypeController
+
+hive:
+    type:     rest
+    resource: CoreBundle\Controller\HiveController
+
+measure:
+    type:     rest
+    resource: CoreBundle\Controller\MeasureController
+
+alert:
+    type:     rest
+    resource: CoreBundle\Controller\AlertController
+
+hive_alert:
+    type:     rest
+    parent:   hive
+    resource: CoreBundle\Controller\HiveAlertController
+
+admin_hive:
+    type:      rest
+    resource:  CoreBundle\Controller\AdminController
