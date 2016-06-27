@@ -5,6 +5,7 @@ namespace CoreBundle\Entity\Traits;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -19,6 +20,7 @@ Trait UploadableTrait
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="image", fileNameProperty="imageName")
+     * @Assert\Image()
      *
      * @var File
      */
