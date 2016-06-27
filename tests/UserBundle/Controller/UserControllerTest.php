@@ -1,8 +1,9 @@
 <?php
 
-namespace Tests\CoreBundle\Controller;
+namespace Tests\Bundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Tests\CoreBundle\Controller\AbstractControllerTest;
 
 class UserControllerTest extends AbstractControllerTest
 {
@@ -154,23 +155,6 @@ class UserControllerTest extends AbstractControllerTest
         $this->isUnauthorized(Request::METHOD_GET, $url);
     }
 
-    public function testGetMeHiveSuccessful()
-    {
-        $user = self::USER1;
-        $header = $this->getHeaderConnect($user['username'], $user['password']);
-
-        $url = '/me/hives';
-
-        $this->isSuccessful(Request::METHOD_GET, $url, [], $header);
-    }
-
-    public function testGetMeHiveUnauthorized()
-    {
-        $url = '/me/hives';
-
-        $this->isUnauthorized(Request::METHOD_GET, $url);
-    }
-
     // === PATCH ===
     public function testPatchMeSuccessful()
     {
@@ -182,7 +166,7 @@ class UserControllerTest extends AbstractControllerTest
             'plainPassword' => 'supernewpassword',
         ];
 
-        $this->isSuccessful(Request::METHOD_PATCH, $url, $params, $header);
+        $this->isSuccessful(Request::METHOD_POST, $url, $params, $header);
 
         $header = $this->getHeaderConnect(self::EMAIL, $params['plainPassword'], true);
 
@@ -195,13 +179,13 @@ class UserControllerTest extends AbstractControllerTest
 
         $url = '/me';
 
-        $this->isBadRequest(Request::METHOD_PATCH, $url, [], $header);
+        $this->isBadRequest(Request::METHOD_POST, $url, [], $header);
     }
 
     public function testPatchMeUnauthorized()
     {
         $url = '/me';
 
-        $this->isUnauthorized(Request::METHOD_PATCH, $url);
+        $this->isUnauthorized(Request::METHOD_POST, $url);
     }
 }
