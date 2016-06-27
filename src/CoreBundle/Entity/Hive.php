@@ -8,6 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
 use CoreBundle\Entity\Interfaces\OwnableInterface;
+use CoreBundle\Entity\Traits\LocalizableTrait;
 use CoreBundle\Entity\Traits\NameableTrait;
 
 /**
@@ -22,6 +23,7 @@ class Hive implements OwnableInterface
 {
     use TimestampableEntity;
     use NameableTrait;
+    use LocalizableTrait;
 
     /**
      * @var int

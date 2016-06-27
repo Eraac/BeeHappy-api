@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class HiveType extends AbstractType
@@ -21,6 +20,12 @@ class HiveType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
+            ->add('latitude', NumberType::class, [
+                'scale' => 10,
+            ])
+            ->add('longitude', NumberType::class, [
+                'scale' => 10,
+            ])
         ;
     }
 
