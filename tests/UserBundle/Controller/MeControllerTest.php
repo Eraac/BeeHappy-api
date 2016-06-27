@@ -3,6 +3,7 @@
 namespace Tests\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Tests\CoreBundle\Controller\AbstractControllerTest;
 
 class MeControllerTest extends AbstractControllerTest

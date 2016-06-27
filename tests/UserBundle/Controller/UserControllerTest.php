@@ -3,12 +3,13 @@
 namespace Tests\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Tests\UserBundle\Component\HttpFoundation\File\CustomUploadedFile;
 use Tests\CoreBundle\Controller\AbstractControllerTest;
 
 class UserControllerTest extends AbstractControllerTest
 {
     const PREFIX_URL = '/users';
-    const EMAIL = 'tmp-user@urbanpotager.com';
+    const EMAIL = 'tmp-user@beehappy.com';
 
     private static $token;
 
@@ -54,10 +55,20 @@ class UserControllerTest extends AbstractControllerTest
 
     public function testPostCreateSuccessful()
     {
+        $image = new CustomUploadedFile(
+            dirname(__FILE__) . '/../assets/images/white-square.jpg',
+            'white-square.jpg',
+            'image/jpg',
+            322,
+            null,
+            true
+        );
+
         $params = [
             'username' => 'super username',
             'email' => self::EMAIL,
             'plainPassword' => 'coucou',
+            'image' => ['file' => $image],
         ];
 
         $this->isSuccessful(Request::METHOD_POST, self::PREFIX_URL, $params);
@@ -65,10 +76,33 @@ class UserControllerTest extends AbstractControllerTest
 
     public function testPostCreateBadRequest()
     {
+        $image = new CustomUploadedFile(
+            dirname(__FILE__) . '/../assets/images/bad-image.txt',
+            'bad-image.txt',
+            'text/plain',
+            20
+        );
+
+        $params = [
+            'username' => 'super username',
+            'email' => self::EMAIL,
+            'plainPassword' => 'coucou',
+            'image' => ['file' => $image],
+        ];
+
+        $this->isBadRequest(Request::METHOD_POST, self::PREFIX_URL, $params);
+
         $params = [
             'username' => 'super username',
             'email' => 'not-an-email',
             'plainPassword' => 'coucou',
+        ];
+
+        $this->isBadRequest(Request::METHOD_POST, self::PREFIX_URL, $params);
+
+        $params = [
+            'username' => 'super username',
+            'email' => 'email@google.com',
         ];
 
         $this->isBadRequest(Request::METHOD_POST, self::PREFIX_URL, $params);
