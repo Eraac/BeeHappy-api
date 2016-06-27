@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Bundle\Controller;
+namespace Tests\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Tests\CoreBundle\Controller\AbstractControllerTest;
@@ -135,57 +135,5 @@ class UserControllerTest extends AbstractControllerTest
         $url = '/reset-password/' . $this->fakeSlug();
 
         $this->isNotFound(Request::METHOD_POST, $url);
-    }
-
-    // === GET ===
-    public function testGetMeSuccessful()
-    {
-        $user = self::USER1;
-        $header = $this->getHeaderConnect($user['username'], $user['password']);
-
-        $url = '/me';
-
-        $this->isSuccessful(Request::METHOD_GET, $url, [], $header);
-    }
-
-    public function testGetMeUnauthorized()
-    {
-        $url = '/me';
-
-        $this->isUnauthorized(Request::METHOD_GET, $url);
-    }
-
-    // === PATCH ===
-    public function testPatchMeSuccessful()
-    {
-        $header = $this->getHeaderConnect(self::EMAIL, 'newpassword');
-
-        $url = '/me';
-
-        $params = [
-            'plainPassword' => 'supernewpassword',
-        ];
-
-        $this->isSuccessful(Request::METHOD_POST, $url, $params, $header);
-
-        $header = $this->getHeaderConnect(self::EMAIL, $params['plainPassword'], true);
-
-        $this->assertTrue(!is_null($header));
-    }
-
-    public function testPatchMeBadRequest()
-    {
-        $header = $this->getHeaderConnect(self::EMAIL, 'supernewpassword');
-
-        $url = '/me';
-
-        $this->isBadRequest(Request::METHOD_POST, $url, [], $header);
-    }
-
-    public function testPatchMeUnauthorized()
-    {
-        $url = '/me';
-
-        $this->isUnauthorized(Request::METHOD_POST, $url);
     }
 }
