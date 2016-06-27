@@ -2,9 +2,12 @@
 
 namespace UserBundle\Entity;
 
+use CoreBundle\Entity\Traits\UploadableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -12,6 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
+ * @Vich\Uploadable
  * @JMS\ExclusionPolicy("all")
  * @UniqueEntity(
  *     fields={"username"},
@@ -24,6 +28,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class User extends BaseUser
 {
+    use UploadableTrait;
+    use TimestampableEntity;
+
     /**
      * @var int
      *

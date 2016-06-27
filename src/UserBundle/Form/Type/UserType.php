@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UserType extends AbstractType
 {
@@ -21,6 +22,7 @@ class UserType extends AbstractType
             ->add('username', TextType::class)
             ->add('email', EmailType::class)
             ->add('plainPassword', PasswordType::class)
+            ->add('image', VichImageType::class);
         ;
     }
 
@@ -29,9 +31,10 @@ class UserType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'UserBundle\Entity\User'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'UserBundle\Entity\User',
+            'validation_groups' => ['Default', 'new'],
+        ]);
     }
 
     public function getBlockPrefix()

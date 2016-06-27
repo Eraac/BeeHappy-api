@@ -13,28 +13,14 @@ class MeController extends CoreController
      */
     public function getMeAction()
     {
-        return [
-            'user' => $this->getUser(),
-        ];
-    }
+        $user = $this->getUser();
 
-    /**
-     * @View(serializerGroups={"Default", "me-hive"})
-     */
-    public function getMeHivesAction(Request $request)
-    {
-        /** @var \CoreBundle\Repository\HiveRepository $repo */
-        $repo = $this->getRepository('CoreBundle:Hive');
-
-        $query = $repo->queryMeHives($this->getUser());
-
-        $pagination = $this->getPagination($request, $query, 'hive');
+        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+        $path = $helper->asset($user, 'image');
 
         return [
-            'total_items' => $pagination->getTotalItemCount(),
-            'item_per_page' => $pagination->getItemNumberPerPage(),
-            'hives' => $pagination->getItems(),
-            'page' => $pagination->getCurrentPageNumber(),
+            'user' => $user,
+            'image_link' => $path,
         ];
     }
 

@@ -13,4 +13,6 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+/web/assets/
 !/var/jwt/.gitkeep
+!/web/assets/images/.gitkeep

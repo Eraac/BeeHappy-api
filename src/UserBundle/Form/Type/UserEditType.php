@@ -25,9 +25,10 @@ class UserEditType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'UserBundle\Entity\User'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'UserBundle\Entity\User',
+            'validation_groups' => ['Default'],
+        ]);
     }
 
     public function getParent()

@@ -27,36 +27,44 @@ class UserController extends CoreController
         /** @var \UserBundle\Entity\User $user */
         $user = $userManager->createUser();
 
-        return $this->formUser($user, $request, 'post');
+        return $this->formUser($user, $request, false);
     }
 
     /**
      * @View(serializerGroups={"Default", "details-user", "me"})
+     * @Post("/me")
      */
-    public function patchMeAction(Request $request)
+    public function postMeAction(Request $request) // post because no file upload with PATCH
     {
         $user = $this->getUser();
 
-        return $this->formUser($user, $request, 'patch');
+        return $this->formUser($user, $request, true);
     }
 
-    private function formUser(User $user, Request $request, $method = 'post')
+    private function formUser(User $user, Request $request, $isEdit = false)
     {
-        $formType = 'post' === $method ? UserType::class : UserEditType::class;
+        $formType = !$isEdit ? UserType::class : UserEditType::class;
 
-        $form = $this->createForm($formType, $user, ['method' => $method]);
+        $form = $this->createForm($formType, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ('post' === $method) {
+            if (!$isEdit) {
                 $event = new UserCreateEvent($user);
 
                 $this->dispatch(UserCreateEvent::NAME, $event);
             }
 
+            $user = $this->persistUser($user);
+
+            /** @var \Vich\UploaderBundle\Templating\Helper\UploaderHelper $helper */
+            $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+            $path = $helper->asset($user, 'image');
+
             return [
-                'user' => $this->persistUser($user),
+                'user' => $user,
+                'image_link' => $path,
             ];
         }
 

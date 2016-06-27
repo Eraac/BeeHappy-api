@@ -17,6 +17,7 @@ UserBundle\Entity\User:
         plainPassword:
             - NotBlank:
                 message: 'constraints.not_blank'
+                groups: [new]
             - Length:
                 max: 255
                 maxMessage: 'constraints.length.max'
