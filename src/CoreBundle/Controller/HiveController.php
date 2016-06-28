@@ -3,6 +3,7 @@
 namespace CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Util\Codes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use CoreBundle\Entity\Hive;
 use CoreBundle\Security\HiveVoter;
 use CoreBundle\Form\Type\HiveType;
+use CoreBundle\Form\Type\HivePictureType;
 
 class HiveController extends CoreController
 {
@@ -43,6 +45,7 @@ class HiveController extends CoreController
 
         return [
             'hive' => $hive,
+            'image_link' => $this->getPathPicture($hive),
         ];
     }
 
@@ -62,11 +65,22 @@ class HiveController extends CoreController
      * @View(serializerGroups={"Default", "detail-hive", "me-hive"})
      * @ParamConverter("hive", options={"mapping": {"hive": "slug"}})
      */
-    public function patchHiveAction(Hive $hive, Request $request)
+    public function patchHiveAction(Hive $hive, Request $request) // use POST because no file uploaded on PATCH
     {
         $this->isGranted(HiveVoter::EDIT, $hive);
 
         return $this->formHive($hive, $request, 'patch');
+    }
+
+    /**
+     * @View(serializerGroups={"Default", "detail-hive", "me-hive"})
+     * @ParamConverter("hive", options={"mapping": {"hive": "slug"}})
+     */
+    public function postHivePictureAction(Hive $hive, Request $request)
+    {
+        $this->isGranted(HiveVoter::EDIT, $hive);
+
+        return $this->formHive($hive, $request, 'post', true);
     }
 
     /**
@@ -80,9 +94,11 @@ class HiveController extends CoreController
         $this->getManager()->flush();
     }
 
-    private function formHive(Hive $hive, Request $request, $method = 'post')
+    private function formHive(Hive $hive, Request $request, $method = 'post', $onlyPicture = false)
     {
-        $form = $this->createForm(HiveType::class, $hive, ['method' => $method]);
+        $formType = $onlyPicture ? HivePictureType::class : HiveType::class;
+
+        $form = $this->createForm($formType, $hive, ['method' => $method]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,6 +108,7 @@ class HiveController extends CoreController
 
             return [
                 'hive' => $hive,
+                'image_link' => $this->getPathPicture($hive),
             ];
         }
 

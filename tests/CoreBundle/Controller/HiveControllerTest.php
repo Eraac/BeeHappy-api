@@ -3,6 +3,7 @@
 namespace Tests\CoreBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Tests\UserBundle\Component\HttpFoundation\File\CustomUploadedFile;
 
 class HiveControllerTest extends AbstractControllerTest
 {
@@ -40,6 +41,32 @@ class HiveControllerTest extends AbstractControllerTest
             $hive['name'], $params['name'],
             sprintf('[hive] %s != [params] %s', $hive['name'], $params['name'])
         );
+    }
+
+    public function testPostPictureSuccessful()
+    {
+        $user = self::USER1;
+        $header = $this->getHeaderConnect($user['username'], $user['password']);
+
+        $url = self::PREFIX_URL . '/' . self::$slugHive . '/pictures';
+
+        $image = new CustomUploadedFile(
+            dirname(__FILE__) . '/../../UserBundle/assets/images/white-square.jpg',
+            'white-square.jpg',
+            'image/jpg',
+            322,
+            null,
+            true
+        );
+
+        $params = [
+            'image' => ['file' => $image],
+        ];
+
+        $this->isSuccessful(Request::METHOD_POST, $url, $params, $header);
+        $image = $this->getResponseContent('image_link');
+
+        $this->assertTrue(!is_null($image));
     }
 
     public function testPostBadRequest()

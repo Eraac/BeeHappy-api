@@ -202,6 +202,19 @@ abstract class CoreController extends Controller
     }
 
     /**
+     * @param object $entity
+     *
+     * @return string
+     */
+    protected function getPathPicture($entity)
+    {
+        /** @var \Vich\UploaderBundle\Templating\Helper\UploaderHelper $helper */
+        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+
+        return $helper->asset($entity, 'image');
+    }
+
+    /**
      * @return string
      */
     abstract protected function getRepositoryName();

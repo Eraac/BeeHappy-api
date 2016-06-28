@@ -6,24 +6,26 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use JMS\Serializer\Annotation as JMS;
 use CoreBundle\Entity\Interfaces\OwnableInterface;
-use CoreBundle\Entity\Traits\LocalizableTrait;
-use CoreBundle\Entity\Traits\NameableTrait;
+use CoreBundle\Entity\Traits as CoreTraits;
 
 /**
  * Hive
  *
  * @ORM\Table(name="hive")
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\HiveRepository")
+ * @Vich\Uploadable
  * @ORM\HasLifecycleCallbacks()
  * @JMS\ExclusionPolicy("all")
  */
 class Hive implements OwnableInterface
 {
     use TimestampableEntity;
-    use NameableTrait;
-    use LocalizableTrait;
+    use CoreTraits\NameableTrait;
+    use CoreTraits\LocalizableTrait;
+    use CoreTraits\UploadableTrait;
 
     /**
      * @var int

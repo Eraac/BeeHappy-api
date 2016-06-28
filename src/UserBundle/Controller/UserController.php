@@ -58,13 +58,9 @@ class UserController extends CoreController
 
             $user = $this->persistUser($user);
 
-            /** @var \Vich\UploaderBundle\Templating\Helper\UploaderHelper $helper */
-            $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
-            $path = $helper->asset($user, 'image');
-
             return [
                 'user' => $user,
-                'image_link' => $path,
+                'image_link' => $this->getPathPicture($user),
             ];
         }
 
