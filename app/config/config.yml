@@ -151,3 +151,6 @@ vich_uploader:
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
+
+craue_geo:
+    enable_postal_code_entity: false

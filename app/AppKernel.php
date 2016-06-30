@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Gesdinet\JWTRefreshTokenBundle\GesdinetJWTRefreshTokenBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
+            new Craue\GeoBundle\CraueGeoBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new UserBundle\UserBundle(),

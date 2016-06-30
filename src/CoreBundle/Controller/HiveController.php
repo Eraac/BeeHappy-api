@@ -25,7 +25,7 @@ class HiveController extends CoreController
 
         $query = $filter->getQuery('queryBuilderHivesByUser', [$this->getUser()]);
 
-        $pagination = $this->getPagination($request, $query, 'hive');
+        $pagination = $this->getPagination($request, $query, 'hive', ['wrap-queries' => true]);
 
         return [
             'total_items' => $pagination->getTotalItemCount(),
