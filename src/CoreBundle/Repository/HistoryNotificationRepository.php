@@ -1,8 +1,10 @@
 <?php
 
 namespace CoreBundle\Repository;
+
 use CoreBundle\Entity\Alert;
 use CoreBundle\Entity\Hive;
+use UserBundle\Entity\User;
 
 /**
  * HistoryNotificationRepository
@@ -16,7 +18,7 @@ class HistoryNotificationRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('h')
                 ->select('COUNT(h.id)')
-                ->where('h.hives = :hive')
+                ->where('h.hive = :hive')
                 ->andWhere('h.alert = :alert')
                 ->setParameters([
                     'hive' => $hive,
@@ -24,5 +26,15 @@ class HistoryNotificationRepository extends \Doctrine\ORM\EntityRepository
                 ]);
 
         return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function queryBuilderNotification(User $user)
+    {
+        $qb = $this->createQueryBuilder('h')
+                ->leftJoin('h.hive', 'hi')
+                ->where('hi.owner = :user')
+                ->setParameter('user', $user);
+
+        return $qb;
     }
 }

@@ -32,6 +32,7 @@ parameters:
     user_per_page: 20
     type_per_page: 20
     measure_per_page: 50
+    notification_per_page: 10
 
     # mail
     mail_sender: 'no-reply@domain.tld'

@@ -3,12 +3,14 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * HistoryNotification
  *
  * @ORM\Table(name="history_notification")
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\HistoryNotificationRepository")
+ * @JMS\ExclusionPolicy("all")
  */
 class HistoryNotification
 {
@@ -25,6 +27,7 @@ class HistoryNotification
      * @var \DateTime
      *
      * @ORM\Column(name="sendAt", type="datetime")
+     * @JMS\Expose()
      */
     private $sendAt;
 
@@ -32,6 +35,7 @@ class HistoryNotification
      * @var \CoreBundle\Entity\Hive
      *
      * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\Hive")
+     * @JMS\Expose()
      */
     private $hive;
 
@@ -39,6 +43,7 @@ class HistoryNotification
      * @var \CoreBundle\Entity\Alert
      *
      * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\Alert")
+     * @JMS\Expose()
      */
     private $alert;
 
