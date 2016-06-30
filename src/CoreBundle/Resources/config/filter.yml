@@ -38,3 +38,9 @@ services:
         parent: core.base_filter
         arguments: ['@core.user_repository']
         public: true
+
+    core.notification_filter:
+        class: CoreBundle\Filter\NotificationFilter
+        parent: core.base_filter
+        arguments: ['@core.history_notification_repository']
+        public: true
