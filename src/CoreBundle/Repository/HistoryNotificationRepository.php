@@ -37,4 +37,13 @@ class HistoryNotificationRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb;
     }
+
+    public function queryBuilderNotificationByHive(Hive $hive)
+    {
+        $qb = $this->createQueryBuilder('h')
+            ->where('h.hive = :hive')
+            ->setParameter('hive', $hive);
+
+        return $qb;
+    }
 }
