@@ -34,4 +34,5 @@ security:
         - { path: ^/me($|/), roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/alerts$, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/notifications, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/hives, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/admin/, role: ROLE_SUPER_ADMIN }

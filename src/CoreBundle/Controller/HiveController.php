@@ -23,7 +23,7 @@ class HiveController extends CoreController
         /** @var \CoreBundle\Filter\HiveFilter $filter */
         $filter = $this->getFilter('core.hive_filter', $request);
 
-        $query = $filter->getQuery('queryBuilderHives');
+        $query = $filter->getQuery('queryBuilderHivesByUser', [$this->getUser()]);
 
         $pagination = $this->getPagination($request, $query, 'hive');
 

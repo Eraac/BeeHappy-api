@@ -22,6 +22,15 @@ class HiveRepository extends \Doctrine\ORM\EntityRepository
         return $this->createQueryBuilder('h');
     }
 
+    public function queryBuilderHivesByUser(User $user)
+    {
+        $qb = $this->createQueryBuilder('h')
+                    ->where('h.owner = :user')
+                    ->setParameter('user', $user);
+
+        return $qb;
+    }
+
     public function queryMeHives(User $user)
     {
         $qb = $this->createQueryBuilder('h')
