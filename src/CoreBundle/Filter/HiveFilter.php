@@ -59,6 +59,8 @@ class HiveFilter extends DateFilter
 
     protected function getFields()
     {
-        return [self::NAME];
+        $fields = parent::getFields();
+
+        return array_merge([self::NAME], $fields);
     }
 }

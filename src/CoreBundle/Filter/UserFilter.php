@@ -5,7 +5,7 @@ namespace CoreBundle\Filter;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class UserFilter extends Filter
+class UserFilter extends DateFilter
 {
     const USERNAME = 'username';
     const EMAIL = 'email';
@@ -40,6 +40,8 @@ class UserFilter extends Filter
 
     protected function getFields()
     {
-        return [self::USERNAME, self::EMAIL];
+        $fields = parent::getFields();
+
+        return array_merge([self::USERNAME, self::EMAIL], $fields);
     }
 }

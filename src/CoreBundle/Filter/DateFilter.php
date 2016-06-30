@@ -74,6 +74,6 @@ class DateFilter extends Filter
 
     protected function getFields()
     {
-        return ['createdAt'];
+        return ['createdAt', 'updatedAt'];
     }
 }
