@@ -58,11 +58,3 @@ class NotificationController extends CoreController
         return 'CoreBundle:HistoryNotification';
     }
 }
-
-/*
- * 1. endpoint notification par ruche
- * 2. documentation (filter / endpoint)
- * 3. corriger bug sur UrbanPotager
- * 4. Geoloc
- * 5. push
- */
