@@ -11,10 +11,7 @@ before_script:
   - mysql -e 'create database beehappy;'
   - cp app/config/parameters.yml.travis app/config/parameters.yml
   - composer install
-  - php bin/console doctrine:schema:update --force --env=test
-  - php bin/console fos:user:create --env=test admin admin@domain.tld admin
-  - php bin/console fos:user:create --env=test user1 user1@domain.tld userpass
-  - php bin/console fos:user:create --env=test user2 user2@domain.tld userpass
+  - mysql -u travis beehappy < var/dump/beehappy-test.sql
 
 script:
   - phpunit -c phpunit.xml
