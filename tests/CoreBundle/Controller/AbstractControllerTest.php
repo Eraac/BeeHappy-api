@@ -124,6 +124,10 @@ abstract class AbstractControllerTest extends WebTestCase
     {
         $json = json_decode($this->client->getResponse()->getContent(), true);
 
+        var_dump($this->client->getResponse()->getContent());
+        var_dump($this->client->getResponse()->getStatusCode());
+        die;
+
         if (is_null($json)) {
             $this->assertTrue(false, 'Json is invalid');
             return null;
