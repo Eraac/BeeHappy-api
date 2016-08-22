@@ -1,0 +1,21 @@
+language: php
+php:
+    - 5.5
+
+services:
+  - mysql
+
+before_script:
+  - openssl genrsa -passout pass:coucou -out var/jwt/private.pem -aes256 4096
+  - openssl rsa -passin pass:coucou -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+  - mysql -e 'create database blog;'
+  - cp app/config/parameters.yml.travis app/config/parameters.yml
+  - composer install
+  - php app/console doctrine:schema:create --env=test
+
+script:
+  - phpunit -c app
+
+notifications:
+  email:
+    -  kevin@labesse.me
