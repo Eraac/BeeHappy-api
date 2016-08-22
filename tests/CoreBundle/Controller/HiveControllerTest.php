@@ -89,7 +89,15 @@ class HiveControllerTest extends AbstractControllerTest
     // === GET ===
     public function testCGetSuccessful()
     {
-        $this->isSuccessful(Request::METHOD_GET, self::PREFIX_URL);
+        $user = self::USER1;
+        $header = $this->getHeaderConnect($user['username'], $user['password']);
+
+        $this->isSuccessful(Request::METHOD_GET, self::PREFIX_URL, [], $header);
+    }
+
+    public function testCGetUnauthorized()
+    {
+        $this->isUnauthorized(Request::METHOD_GET, self::PREFIX_URL);
     }
 
     public function testGetOwnerSuccessful()
@@ -129,9 +137,12 @@ class HiveControllerTest extends AbstractControllerTest
 
     public function testGetNotFound()
     {
+        $user = self::USER2;
+        $header = $this->getHeaderConnect($user['username'], $user['password']);
+
         $url = self::PREFIX_URL . '/' . $this->fakeSlug();
 
-        $this->isNotFound(Request::METHOD_GET, $url);
+        $this->isNotFound(Request::METHOD_GET, $url, [], $header);
     }
 
     // === PATCH ===

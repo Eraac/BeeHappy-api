@@ -70,13 +70,13 @@ class MeasureControllerTest extends AbstractControllerTest
         $url = self::PREFIX_URL . '?api_key=' . self::$apiKey;
 
         $params = [
-            'type' => 'water-level',
+            'type' => 'humidity-inside',
             'value' => 15.45,
         ];
 
         $this->isSuccessful(Request::METHOD_POST, $url, $params);
 
-        $params['type'] = 'humidity-air';
+        $params['type'] = 'humidity-inside';
 
         $this->isSuccessful(Request::METHOD_POST, $url, $params);
     }
@@ -86,7 +86,7 @@ class MeasureControllerTest extends AbstractControllerTest
         $url = self::PREFIX_URL . '?api_key=' . self::$apiKey;
 
         $params = [
-            'type' => 'water-level',
+            'type' => 'humidity-inside',
         ];
 
         $this->isBadRequest(Request::METHOD_POST, $url, $params);
@@ -97,7 +97,7 @@ class MeasureControllerTest extends AbstractControllerTest
         $url = self::PREFIX_URL;
 
         $params = [
-            'type' => 'water-level',
+            'type' => 'humidity-inside',
             'value' => 15.45,
         ];
 
@@ -109,7 +109,7 @@ class MeasureControllerTest extends AbstractControllerTest
     {
         $baseUrl = '/hives/' . self::$slug . '/measures/';
 
-        $url = $baseUrl . 'humidity-air';
+        $url = $baseUrl . 'humidity-inside';
         $header = $this->getHeaderConnect(self::$user['username'], self::$user['password']);
 
         $this->isSuccessful(Request::METHOD_GET, $url, [], $header);
@@ -118,7 +118,7 @@ class MeasureControllerTest extends AbstractControllerTest
     public function testGetUnauthorized()
     {
         $baseUrl = '/hives/' . self::$slug . '/measures/';
-        $url = $baseUrl . 'humidity-air';
+        $url = $baseUrl . 'humidity-inside';
 
         $this->isUnauthorized(Request::METHOD_GET, $url);
     }
@@ -129,16 +129,19 @@ class MeasureControllerTest extends AbstractControllerTest
         $header = $this->getHeaderConnect($user['username'], $user['password']);
         $baseUrl = '/hives/' . self::$slug . '/measures/';
 
-        $url = $baseUrl . 'humidity-air';
+        $url = $baseUrl . 'humidity-inside';
         $this->isForbidden(Request::METHOD_GET, $url, [], $header);
     }
 
     public function testGetNotFound()
     {
-        $fakeHiveUrl = '/hives/' . $this->fakeSlug() . '/measures/water-level';
-        $this->isNotFound(Request::METHOD_GET, $fakeHiveUrl);
+        $user = self::USER1;
+        $header = $this->getHeaderConnect($user['username'], $user['password']);
+
+        $fakeHiveUrl = '/hives/' . $this->fakeSlug() . '/measures/humidity-inside';
+        $this->isNotFound(Request::METHOD_GET, $fakeHiveUrl, [], $header);
 
         $fakeMeasureUrl = '/hives/' . self::$slug . '/measures/' . $this->fakeSlug();
-        $this->isNotFound(Request::METHOD_GET, $fakeMeasureUrl);
+        $this->isNotFound(Request::METHOD_GET, $fakeMeasureUrl, [], $header);
     }
 }

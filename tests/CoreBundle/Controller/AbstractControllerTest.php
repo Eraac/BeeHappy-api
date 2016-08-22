@@ -43,7 +43,9 @@ abstract class AbstractControllerTest extends WebTestCase
         $this->request($method, $url, $params, $headers);
 
         $this->assertTrue($this->client->getResponse()->isSuccessful(),
-            sprintf('Status code is %d instead of 2xx', $this->client->getResponse()->getStatusCode())
+            sprintf('Status code is %d instead of 2xx',
+                $this->client->getResponse()->getStatusCode()
+            )
         );
     }
 

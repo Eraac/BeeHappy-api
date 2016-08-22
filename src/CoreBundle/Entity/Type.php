@@ -66,7 +66,7 @@ class Type implements Translatable
     /**
      * @var float
      *
-     * @ORM\Column(type="decimal", precision=6, scale=2)
+     * @ORM\Column(type="float", precision=6, scale=2)
      * @Assert\NotNull(message="constraints.not_null")
      * @Assert\Type(
      *     type="float",
@@ -86,7 +86,7 @@ class Type implements Translatable
     /**
      * @var float
      *
-     * @ORM\Column(type="decimal", precision=6, scale=2)
+     * @ORM\Column(type="float", precision=6, scale=2)
      * @Assert\NotNull(message="constraints.not_null")
      * @Assert\Type(
      *     type="float",

@@ -31,7 +31,7 @@ class HiveAlertControllerTest extends AbstractControllerTest
             ->setOwner($user);
 
         $typeRepository = $em->getRepository('CoreBundle:Type');
-        $type = $typeRepository->findOneBy(['slug' => 'water-level']);
+        $type = $typeRepository->findOneBy(['slug' => 'humidity-inside']);
 
         $alert = new Alert();
         $alert->setName('coucou')

@@ -21,7 +21,7 @@ class AlertControllerTest extends AbstractControllerTest
             'name' => 'alert name',
             'description' => 'description',
             'message' => 'message',
-            'type' => 'water-level',
+            'type' => 'humidity-inside',
         ];
 
         $this->isSuccessful(Request::METHOD_POST, self::PREFIX_URL, $params, $header);

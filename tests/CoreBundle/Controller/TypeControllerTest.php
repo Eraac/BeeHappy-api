@@ -19,7 +19,7 @@ class TypeControllerTest extends AbstractControllerTest
 
     public function testGetSuccessful()
     {
-        $slug = "water-level";
+        $slug = "humidity-inside";
         $url = self::PREFIX_URL . '/' . $slug;
         $this->isSuccessful(Request::METHOD_GET, $url);
     }
@@ -32,7 +32,7 @@ class TypeControllerTest extends AbstractControllerTest
 
     public function testGetLocale()
     {
-        $slug = "water-level";
+        $slug = "humidity-inside";
         $url = self::PREFIX_URL . '/' . $slug;
 
         $this->isSuccessful(Request::METHOD_GET, $url . '?_locale=en');
@@ -57,8 +57,8 @@ class TypeControllerTest extends AbstractControllerTest
         $params = [
             'name' => 'My new type',
             'description' => 'My description',
-            'min' => 0,
-            'max' => 100,
+            'min' => 0.0,
+            'max' => 100.0,
         ];
 
         $this->isSuccessful(Request::METHOD_POST, self::PREFIX_URL, $params, $header);
@@ -184,7 +184,7 @@ class TypeControllerTest extends AbstractControllerTest
 
     public function testDeleteUnauthorized()
     {
-        $slug = "water-level";
+        $slug = "humidity-inside";
         $url = self::PREFIX_URL . '/' . $slug;
         $this->isUnauthorized(Request::METHOD_DELETE, $url);
     }
@@ -194,7 +194,7 @@ class TypeControllerTest extends AbstractControllerTest
         $user = self::USER1;
         $header = $this->getHeaderConnect($user['username'], $user['password']);
 
-        $slug = "water-level";
+        $slug = "humidity-inside";
         $url = self::PREFIX_URL . '/' . $slug;
 
         $this->isForbidden(Request::METHOD_DELETE, $url, [], $header);
