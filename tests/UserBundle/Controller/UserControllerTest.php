@@ -55,7 +55,7 @@ class UserControllerTest extends AbstractControllerTest
 
     public function testPostCreateSuccessful()
     {
-        $image = new \Tests\UserBundle\Component\HttpFoundation\File\CustomUploadedFile(
+        $image = new CustomUploadedFile(
             dirname(__FILE__) . '/../assets/images/white-square.jpg',
             'white-square.jpg',
             'image/jpg',
