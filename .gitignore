@@ -2,6 +2,7 @@
 /build/
 /var/*
 !/var/cache
+!/var/dump
 /var/cache/*
 !var/cache/.gitkeep
 !/var/logs
