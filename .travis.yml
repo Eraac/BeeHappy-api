@@ -8,6 +8,11 @@ services:
   - mysql
   - docker
 
+install:
+  - sudo rm -Rf /var/lib/apt/lists/*
+  - sudo apt-get update -qq
+  - sudo apt-get install -y mysql-server-5.6 mysql-client-5.6 mysql-client-core-5.6  # hack because the mysql service above never starts :(
+
 before_script:
   - openssl genrsa -passout pass:beehappy -out var/jwt/private.pem -aes256 4096
   - openssl rsa -passin pass:beehappy -pubout -in var/jwt/private.pem -out var/jwt/public.pem
