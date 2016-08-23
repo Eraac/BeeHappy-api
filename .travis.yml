@@ -17,7 +17,7 @@ script:
   - phpunit -c phpunit.xml
 
 after_success:
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS"
   - export REPO=$DOCKER_USER/bee-happy
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker build -f Dockerfile -t $REPO:${TRAVIS_COMMIT::8} .
@@ -31,4 +31,4 @@ notifications:
 
 env:
   global:
-    secure: CJ9CzZyd9YCzKGQYRPGeynOVPZ3bg/iTVGv5RlPa77eemNkSzCH/Dg4aq/QmPKt2KKPDtiG7m5IeB+alvdlNHreILrB4yZoC6YhQHiOWzwH7vGTG7yLM5gPoZE2sYFkEJhsfqcc61DloykP+J/scQUM5jod3v6v0BgOsW+zAaCXTlTEyC5J/TaQ4/7sMccwuV6+pxyHUd6LD6Nxq/qv+W3DG76qlM5XmfObz/XpLni0g1mT7lkJibl02CDy1tVBEJ2yDk2nzPaL2v9L5Ztx1ffUHkoC+0DIcvF1gtqURTo/xsCUU5MmTJUy/hb30sG/y8qdCovnFFSvb2gQdCtSms4ReTMTy5oHyDMgO98FQpY27rgTCkn2tfHEs3p9LxliAbC+toNNqiD5dJtmS9tdSMzDTYzB07U2BXtfEI8Y13DetFG8DXiSpWqJe3fnmHNOzsQtEXo0FK/c9xxrTvNqGNAA1QMPJow9Y1D0iZgk7OpD9VbkmQQpT/CGVDdbfaS0/EXyVyzUNUaPT+tY/BKVcmG153PprY3pnVGbnmqxz6xDbbWdjEDNawGYSnclTa7mR31/BgunG7a1E3/nR7K1Yqjjqz3x7RU1J5HPWK5hACrP9Zbco0O2A5DRhi+bpvYguVgn7zXCCABM6NmAuffqDdr8YdSeCjwmxW2h/GebMl4k=
+    secure: JcdG3wEBvf1pMQKpsSLf2W3Fisemd/GpI3cf5zR5EbMttXRG8hI6AmhwcgCFP7CuA6qGRsekSRWcAVhrCBjXIy3UFStu+nt7V2E3Fp1BozIXIvyc+hi4wjELryMJZ7V3VBDLukx3Va9TrigRoKnjMF9nGYDVxMJlk+lXB8DsYTniNi6AFDudMgS6+GNE6ooPdBOp+/HY/Sc6YxBg+ml+VXHvE/LhTqt67LzjBEi0ktfUwhfP2agKBLMJI/bnwHAxABZDnwBGAG8MqTtMkBzrU/nKVn2CbT9IoKdkmrF0X2dV5L7bZMZHo54u57jZ02sn+/7zcGRYpx5VqBuMS6ZhXQ0eoP/Pv7V01Vqzpj+4x7Cr6umki8KSfQyJ6oAsk1czVdUlVgUljXccARQ3OAm7zFMN+UYtTebkaoSlLBTSZ7BsENgulA2B6m4ibtvmz+jhOcMUMTGttfdHrevm6x3bdSn6GkEYbtw+8H5+nTV+xWuzk2hgJmT3wUpsrSRAIAZ2TMhsTLPyhmBXcURonDGcTYxcGDPZiWP51bKKbXEWqxVJ/TFl6icPeq6hTHdbbTYIyGfv9QIXprxI+JNbnsrjN0Na4f2KJFo5g9RfFUBY6tA4jV73IRYjIgZFSEr+jAX3uVEYC3LhSghi5K5rE2KRAdYJApmKayRL7F0WRkx7IUk=
