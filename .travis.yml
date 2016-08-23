@@ -4,6 +4,7 @@ php:
 
 services:
   - mysql
+  - docker
 
 before_script:
   - openssl genrsa -passout pass:beehappy -out var/jwt/private.pem -aes256 4096
