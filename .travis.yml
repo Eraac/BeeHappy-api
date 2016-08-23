@@ -13,11 +13,11 @@ before_script:
   - composer install
   - mysql -u travis beehappy < var/dump/beehappy-test.sql
 
-#script:
-#  - phpunit -c phpunit.xml
+script:
+  - phpunit -c phpunit.xml
 
 after_success:
-  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - export REPO=$DOCKER_USER/bee-happy
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker build -f Dockerfile -t $REPO:${TRAVIS_COMMIT::8} .
@@ -28,3 +28,7 @@ after_success:
 notifications:
   email:
     -  kevin@labesse.me
+
+env:
+  global:
+    secure: CJ9CzZyd9YCzKGQYRPGeynOVPZ3bg/iTVGv5RlPa77eemNkSzCH/Dg4aq/QmPKt2KKPDtiG7m5IeB+alvdlNHreILrB4yZoC6YhQHiOWzwH7vGTG7yLM5gPoZE2sYFkEJhsfqcc61DloykP+J/scQUM5jod3v6v0BgOsW+zAaCXTlTEyC5J/TaQ4/7sMccwuV6+pxyHUd6LD6Nxq/qv+W3DG76qlM5XmfObz/XpLni0g1mT7lkJibl02CDy1tVBEJ2yDk2nzPaL2v9L5Ztx1ffUHkoC+0DIcvF1gtqURTo/xsCUU5MmTJUy/hb30sG/y8qdCovnFFSvb2gQdCtSms4ReTMTy5oHyDMgO98FQpY27rgTCkn2tfHEs3p9LxliAbC+toNNqiD5dJtmS9tdSMzDTYzB07U2BXtfEI8Y13DetFG8DXiSpWqJe3fnmHNOzsQtEXo0FK/c9xxrTvNqGNAA1QMPJow9Y1D0iZgk7OpD9VbkmQQpT/CGVDdbfaS0/EXyVyzUNUaPT+tY/BKVcmG153PprY3pnVGbnmqxz6xDbbWdjEDNawGYSnclTa7mR31/BgunG7a1E3/nR7K1Yqjjqz3x7RU1J5HPWK5hACrP9Zbco0O2A5DRhi+bpvYguVgn7zXCCABM6NmAuffqDdr8YdSeCjwmxW2h/GebMl4k=
