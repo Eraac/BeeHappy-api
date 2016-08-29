@@ -17,7 +17,7 @@ before_script:
   - openssl genrsa -passout pass:beehappy -out var/jwt/private.pem -aes256 4096
   - openssl rsa -passin pass:beehappy -pubout -in var/jwt/private.pem -out var/jwt/public.pem
   - mysql -u root -e 'create database beehappy;'
-  - cp app/config/parameters.yml.travis app/config/parameters.yml
+  - mv app/config/parameters.yml.travis app/config/parameters.yml
   - composer install
   - mysql -u root beehappy < var/dump/beehappy-test.sql
 
@@ -28,9 +28,7 @@ after_success:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS"
   - export REPO=$DOCKER_USER/bee-happy
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  - docker build -f Dockerfile -t $REPO:${TRAVIS_COMMIT::8} .
-  - docker tag $REPO:${TRAVIS_COMMIT::8} $REPO:$TAG
-  - docker tag $REPO:${TRAVIS_COMMIT::8} $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker build -f Dockerfile -t $REPO:${TAG} .
   - docker push $REPO
 
 notifications:
