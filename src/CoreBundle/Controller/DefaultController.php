@@ -8,6 +8,6 @@ class DefaultController extends Controller
 {
     public function getAction()
     {
-        return ['version' => '1.0.1'];
+        return ['version' => '1.0.2'];
     }
 }
