@@ -10,3 +10,7 @@ gesdinet_jwt_refresh_token:
 api:
     type: rest
     resource: "routing_rest.yml"
+
+default:
+    path: /
+    defaults: { _controller: CoreBundle:Default:get }

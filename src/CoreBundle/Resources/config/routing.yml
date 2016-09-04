@@ -1,7 +1,3 @@
-default:
-    type:     rest
-    resource: CoreBundle\Controller\DefaultController
-
 type:
     type:     rest
     resource: CoreBundle\Controller\TypeController
