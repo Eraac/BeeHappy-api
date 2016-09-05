@@ -9,7 +9,7 @@ class DefaultController extends Controller
     public function getAction()
     {
         return $this->render('CoreBundle:Default:index.html.twig', [
-            'version' => '1.0.2',
+            'version' => '1.0.3',
         ]);
     }
 }
